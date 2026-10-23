@@ -51,6 +51,14 @@ within a minute or two.
 3. Click **Add file** → **Upload files**, then drag the photos in.
 4. Click **Commit changes**.
 
+### Add your welcome note and guest reviews
+Both are in `settings.js` (look for **A WORD FROM YOU** and **GUEST REVIEWS**).
+Each section stays hidden until you fill it in. Use only real reviews, with the guest's permission.
+
+### Show prices in the booking form
+If you write a number in `rates` (e.g. `"₹3,500"`), the booking form shows guests an
+estimated total (nights × rate) when they choose that house. "On request" shows no estimate.
+
 ### Check what's still missing
 Open your site with `#setup` at the end, e.g.
 `https://vikrantcharak.github.io/homestay-/#setup`. If the WhatsApp number or

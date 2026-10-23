@@ -23,6 +23,9 @@ keep showing the drawing, so you can add them one at a time.
   food.jpg       A full plate, shot from directly above, in daylight.
   harvest.jpg    Hands and the harvest. Close up, no faces needed.
 
+  host.jpg       You / your family, outdoors at the houses. Upright (portrait).
+                 Shown next to your welcome note (write it in settings.js).
+
 TIPS
   • Names must be lowercase and spelled exactly as above.
     .jpg, .jpeg, .png and .webp all work.

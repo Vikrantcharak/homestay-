@@ -82,4 +82,29 @@ window.SITE = {
   // Do you host in winter? What is the walk like with snow? How are the houses heated?
   winter: "Snow on the ridges and short, sharp days. Winter stays are by arrangement — message us before you plan one.",
 
+
+  /* ── A WORD FROM YOU ─────────────────────────────────────────── */
+  // A short welcome in your own words, shown near the top of the page.
+  // Leave note empty ("") and this whole section stays hidden.
+  // Add photos/host.jpg (a photo of your family) and it appears beside it.
+
+  host: {
+    note:  "",
+    names: "",   // how you sign it, e.g. "Vikrant and family"
+  },
+
+
+  /* ── GUEST REVIEWS ───────────────────────────────────────────── */
+  // Only real reviews, copied word for word, with the guest's permission.
+  // The section stays hidden until you add at least one.
+  // Copy the example line, remove the // at the start, and fill it in.
+  // stars is optional (1 to 5). Keep the comma after each review.
+
+  reviews: [
+    // { text: "What the guest wrote.", name: "First name", from: "City", when: "October 2026", stars: 5 },
+  ],
+
+  // Link to your reviews on Google or Airbnb (optional).
+  reviewsLink: "",
+
 };
