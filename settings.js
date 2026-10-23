@@ -18,15 +18,15 @@ window.SITE = {
 
   // WhatsApp number: country code + number, digits only. No +, no spaces.
   // Example: an Indian mobile 98765 43210  →  "919876543210"
-  whatsapp: "919XXXXXXXXX",
+  whatsapp: "917807247594",
 
   // Number guests can call (usually the same as WhatsApp). Same format.
-  phone: "919XXXXXXXXX",
+  phone: "917807247594",
 
   // How the phone number is written on the page.
-  phoneShown: "+91 9XXXX XXXXX",
+  phoneShown: "+91 78072 47594",
 
-  email: "yourname@example.com",
+  email: "charakvikrant48@gmail.com",
 
   // Google Maps link to the road end where you meet guests.
   mapsLink: "https://maps.app.goo.gl/6ka5EgMHPzRz6aM27",
@@ -35,14 +35,19 @@ window.SITE = {
 
 
   /* ── RATES ───────────────────────────────────────────────────── */
-  // Write exactly what should appear, e.g. "₹3,500" or "₹3,500 for up to 4"
+  // Write exactly what should appear, e.g. "₹1,500" or "₹1,500 per person"
 
   rates: {
-    oldHouse:   "On request",
-    newHouse:   "On request",
-    bothHouses: "On request",
-    meals:      "On request",
-    cook:       "On request",
+    stay:   "₹1,500",   // per night, food included
+    hiking: "₹3,000",   // per day with hiking, food and campfire included
+
+    // Is the price per person, or for the whole group?
+    // Write "person" or "group". The booking form then shows guests an
+    // estimated total. Leave "" and no estimate is shown.
+    per:    "",
+
+    // Optional line shown under the rates, e.g. "Children under 5 stay free."
+    note:   "",
   },
 
 
@@ -89,7 +94,7 @@ window.SITE = {
   // Add photos/host.jpg (a photo of your family) and it appears beside it.
 
   host: {
-    note:  "",
+    note:  "Happy to welcome you.",
     names: "",   // how you sign it, e.g. "Vikrant and family"
   },
 
