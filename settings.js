@@ -99,6 +99,15 @@ window.SITE = {
   },
 
 
+  /* ── AI IMAGES ───────────────────────────────────────────────── */
+  // Pictures in the photos folder that were made with AI, not taken at
+  // Gharuru. Each one gets a small "AI illustration" label so guests are
+  // never misled. When you put a real photo in its place (same name),
+  // take its name out of this list.
+
+  aiImages: ["slate", "field", "food", "harvest"],
+
+
   /* ── GUEST REVIEWS ───────────────────────────────────────────── */
   // Only real reviews, copied word for word, with the guest's permission.
   // The section stays hidden until you add at least one.
