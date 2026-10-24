@@ -105,7 +105,7 @@ window.SITE = {
   // never misled. When you put a real photo in its place (same name),
   // take its name out of this list.
 
-  aiImages: ["slate", "field", "food", "harvest"],
+  aiImages: ["crossing", "slate", "field", "food", "harvest"],
 
 
   /* ── GUEST REVIEWS ───────────────────────────────────────────── */
