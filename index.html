@@ -247,6 +247,29 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
   .route__steps em{display:block;font-style:normal;font-size:.88rem;color:var(--ink-2);margin-top:.15rem}
 }
 
+/* ══ the walk on a real map ══ */
+.walk{margin-top:clamp(2.5rem,5vw,4rem);background:var(--paper-2);border:1px solid var(--paper-3);border-radius:3px;padding:clamp(1rem,2.5vw,1.9rem);box-shadow:0 30px 60px -40px rgba(22,35,60,.35)}
+.walk__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.4rem 1.5rem;border-bottom:1px solid var(--paper-3);padding-bottom:.75rem;margin-bottom:1rem}
+.walk__top h3{font-size:1.2rem}
+.walk__stats{font:500 .72rem/1.5 var(--mono);letter-spacing:.08em;color:var(--madder)}
+.walk__grid{display:grid;grid-template-columns:1fr 17rem;gap:clamp(1rem,2.5vw,1.8rem);align-items:start}
+.walk__map{position:relative;aspect-ratio:16/11;border-radius:2px;overflow:hidden;background:var(--paper-3);isolation:isolate}
+.walk__map .leaflet-container{font:inherit;background:#DED5C0}
+.walk__map .leaflet-control-attribution{font-size:10px}
+.walk__hint{position:absolute;left:50%;top:.75rem;transform:translateX(-50%);z-index:500;font:500 .62rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(9,17,30,.6);padding:.45rem .6rem;border-radius:2px;pointer-events:none;white-space:nowrap}
+.walk__legend{list-style:none;margin:0;padding:0;counter-reset:w;font-size:.9rem}
+.walk__legend li{display:grid;grid-template-columns:1.7rem 1fr;gap:.6rem;align-items:start;padding:.55rem 0;border-bottom:1px solid var(--paper-3);cursor:pointer}
+.walk__legend li:last-child{border-bottom:0}
+.walk__legend b{display:block;font-weight:600}
+.walk__legend span{color:var(--ink-2);font-size:.85rem}
+.walk__legend .walk__line{width:1.5rem;height:0;border-top:3px dashed var(--ink-3);margin-top:.6rem}
+.wpin{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--madder);color:#fff;font:600 12px/1 var(--body);border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.wpin--home{background:var(--indigo)}
+.wpin--stone{background:var(--ravi)}
+.walk__legend .wpin{width:22px;height:22px;font-size:11px;box-shadow:none}
+.walk__go{margin-top:1rem;width:100%;justify-content:center}
+@media(max-width:860px){.walk__grid{grid-template-columns:1fr}.walk__map{aspect-ratio:4/5}}
+
 /* ══ photo slots (illustrated until a real photo is added) ══ */
 figure{margin:0}
 .shot{position:relative;aspect-ratio:4/3;display:flex;align-items:flex-end;padding:1.1rem 1.2rem;overflow:hidden;border-radius:3px;
@@ -821,6 +844,28 @@ figure:hover .shot.has-photo>img{transform:scale(1.035)}
           </div>
           <figcaption>The crossing. Ravi River, below Bharmour.</figcaption>
         </figure>
+      </div>
+    </div>
+
+    <!-- ── the walk on a real map, from a GPS track of the route ── -->
+    <div class="walk rv" id="walk">
+      <div class="walk__top">
+        <h3>The walk, on a real map</h3>
+        <span class="walk__stats">Road end to the houses · about 1.9 km · about 90 m up · 30–50 min</span>
+      </div>
+      <div class="walk__grid">
+        <div class="walk__map" id="walkMap" role="img" aria-label="Map of the walk from the road end, across the Ravi on the gharuru, past the river stones, up to the two houses"></div>
+        <div>
+          <ol class="walk__legend">
+            <li data-pin="park"><i class="walk__line"></i><div><b>Park along this road</b><span>There is room to leave a vehicle anywhere on this stretch.</span></div></li>
+            <li data-pin="0"><i class="wpin">1</i><div><b>Road end</b><span>We meet you here.</span></div></li>
+            <li data-pin="1"><i class="wpin">2</i><div><b>The gharuru</b><span>Across the Ravi, a minute from the road end.</span></div></li>
+            <li data-pin="2"><i class="wpin wpin--stone">3</i><div><b>Stones by the river</b><span>The flat river stones for stacking, just past the crossing.</span></div></li>
+            <li data-pin="3"><i class="wpin wpin--home">4</i><div><b>The two houses</b><span>The last stretch climbs through the forest.</span></div></li>
+          </ol>
+          <a class="btn btn--line walk__go" href="https://www.google.com/maps/dir/?api=1&amp;destination=32.38971,76.48612" target="_blank" rel="noopener">Directions to the road end
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
       </div>
     </div>
 
@@ -1632,6 +1677,61 @@ function amount(s){ var m = String(s || '').replace(/,/g, '').match(/\d+/); retu
     if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.shot.has-photo')){ e.preventDefault(); open(e.target); }
   });
   lb.addEventListener('click', function(e){ if (e.target === lb || e.target.closest('button')) lb.close(); });
+})();
+
+/* the walk on a real map: Leaflet loads only when the map is near the screen.
+   The route is a simplified GPS track of the walk (no times kept). */
+(function(){
+  var box = document.getElementById('walkMap'); if (!box) return;
+  var R = {"park":[[32.3884,76.48681],[32.38857,76.48653],[32.38864,76.48655],[32.38861,76.48628],[32.38852,76.48626],[32.38861,76.48594],[32.38882,76.48583],[32.38969,76.48616],[32.38955,76.48645],[32.3899,76.48676]],"walk":[[32.3899,76.48676],[32.38991,76.48685],[32.38986,76.48677],[32.38986,76.48684],[32.39019,76.48756],[32.38968,76.48794],[32.38938,76.48835],[32.38919,76.48819],[32.38921,76.48803],[32.38912,76.48791],[32.38917,76.48778],[32.38911,76.48781],[32.38917,76.48779],[32.38926,76.48836],[32.38938,76.4884],[32.389,76.48875],[32.38843,76.48898],[32.38785,76.4895],[32.38773,76.48977],[32.38774,76.48985],[32.38782,76.48985],[32.38769,76.48988],[32.38743,76.49012],[32.38724,76.49045],[32.38729,76.49052],[32.38747,76.49042],[32.38724,76.49089],[32.38739,76.49164],[32.38672,76.49255],[32.38654,76.49261],[32.38644,76.4925]],"pins":[[32.38971,76.48612],[32.38989,76.48676],[32.38919,76.48819],[32.38646,76.49262]]};
+  var names = ['Road end', 'The gharuru', 'Stones by the river', 'The two houses'];
+  var started = false, map, pins = [], parkLine;
+  function load(){
+    if (started) return; started = true;
+    var css = document.createElement('link'); css.rel = 'stylesheet';
+    css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+    document.head.appendChild(css);
+    var js = document.createElement('script');
+    js.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    js.onload = draw; document.head.appendChild(js);
+  }
+  function draw(){
+    var touch = matchMedia('(hover: none)').matches;
+    map = L.map(box, {scrollWheelZoom: false, dragging: !touch, tap: false, zoomSnap: .25});
+    var street = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'});
+    var terrain = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 17,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, SRTM | <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'});
+    terrain.addTo(map);
+    L.control.layers({'Terrain': terrain, 'Streets': street}, null, {position: 'topright'}).addTo(map);
+    parkLine = L.polyline(R.park, {color: '#4A5670', weight: 5, opacity: .75, dashArray: '2 9', lineCap: 'round'}).addTo(map)
+      .bindPopup('<b>Park along this road</b>');
+    L.polyline(R.walk, {color: '#FFFFFF', weight: 7, opacity: .8}).addTo(map);
+    L.polyline(R.walk, {color: '#A32E2A', weight: 3.5, opacity: .95}).addTo(map);
+    R.pins.forEach(function(p, i){
+      var cls = i === 3 ? ' wpin--home' : i === 2 ? ' wpin--stone' : '';
+      var icon = L.divIcon({className: '', html: '<i class="wpin' + cls + '">' + (i + 1) + '</i>', iconSize: [26, 26], iconAnchor: [13, 13]});
+      pins.push(L.marker(p, {icon: icon, title: names[i], keyboard: false}).addTo(map).bindPopup('<b>' + names[i] + '</b>'));
+    });
+    map.fitBounds(L.latLngBounds(R.park.concat(R.walk)), {padding: [24, 24]});
+    if (touch){
+      var hint = document.createElement('div'); hint.className = 'walk__hint'; hint.textContent = 'Use two fingers to zoom';
+      box.appendChild(hint);
+    }
+  }
+  /* the list beside the map points at each place */
+  document.querySelectorAll('.walk__legend li').forEach(function(li){
+    li.addEventListener('click', function(){
+      if (!map) return;
+      var k = li.getAttribute('data-pin');
+      if (k === 'park'){ map.fitBounds(parkLine.getBounds(), {padding: [40, 40]}); parkLine.openPopup(); }
+      else { map.setView(pins[k].getLatLng(), 17); pins[k].openPopup(); }
+    });
+  });
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ if (es[0].isIntersecting){ load(); io.disconnect(); } }, {rootMargin: '600px 0px'});
+    io.observe(box);
+  } else load();
 })();
 
 /* mark the season it is right now */
