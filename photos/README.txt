@@ -33,4 +33,6 @@ TIPS
     on WhatsApp first; what you download from WhatsApp is a .jpg.
   • Keep each photo under about 500 KB so the site loads fast on mobile data.
     Free tool: https://squoosh.app (drag the photo in, download the smaller one).
+  • A picture made with AI is fine as a stand-in, but list its name under
+    aiImages in settings.js so the site labels it "AI illustration".
   • Visitors can tap any photo to see it full size.

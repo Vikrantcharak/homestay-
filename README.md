@@ -55,14 +55,42 @@ within a minute or two.
 Both are in `settings.js` (look for **A WORD FROM YOU** and **GUEST REVIEWS**).
 Each section stays hidden until you fill it in. Use only real reviews, with the guest's permission.
 
-### Show prices in the booking form
-If you write a number in `rates` (e.g. `"₹3,500"`), the booking form shows guests an
-estimated total (nights × rate) when they choose that house. "On request" shows no estimate.
+### Show an estimated total in the booking form
+In `settings.js`, under `rates`, set `per` to `"person"` or `"group"`. The booking
+form then shows guests an estimate (rate × nights, × guests when per person).
+Leave `per` as `""` and no estimate is shown.
+
+### Pictures made with AI
+Any picture in `photos/` that was made with AI and not taken at Gharuru must be
+listed in `settings.js` under `aiImages`. The site puts a small "AI illustration"
+label on each one, so no guest is misled. When you replace one with a real photo
+(same file name), remove its name from that list and the label goes away.
 
 ### Check what's still missing
 Open your site with `#setup` at the end, e.g.
 `https://vikrantcharak.github.io/homestay-/#setup`. If the WhatsApp number or
 email are still placeholders, a yellow checklist appears. Visitors never see it.
+
+---
+
+## What moves on the page
+
+- **The sky at the top** is drawn for the real hour at Gharuru: dawn, day, golden
+  hour, dusk, and night with the moon and lit windows. To see another hour, add
+  `?time=18:40` to the address, e.g. `https://vikrantcharak.github.io/homestay-/?time=18:40`.
+- **Each section has its own background** that changes with what you point at:
+  the old or the new house, each day card, each season.
+- **The small red box under the menu** is the gharuru. It crosses the page as you scroll.
+- **Stack a cairn** (under "Your days") is a small stone-stacking game.
+- **The walk map** in "The crossing" is drawn from a GPS track of the real path.
+- Visitors can stop all of it with **Pause motion** at the very bottom of the page.
+  Phones set to "reduce motion" get a still page automatically.
+
+## The picture people see when you share the link
+
+`share.jpg` is the preview WhatsApp, Instagram and Facebook show beside your link.
+If you move the site to your own address (below), tell whoever edits `index.html`
+to update the `og:image` line near the top to the new address.
 
 ---
 
